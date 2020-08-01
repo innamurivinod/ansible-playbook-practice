@@ -1,0 +1,26 @@
+---
+- name:  downloading required tomcat
+  get_url: 
+    url: "{{tomcat_url}}"
+    dest: /usr/local
+- name: Exrracting download tomcat
+  unarchive:
+    src: "/usr/local/apache-tomcat-{{req_tomcat_ver}}.tar.gz"
+    dest: /usr/local
+    remote_src: yes
+#- name: Renaming tomcat home
+#  command:  mv /usr/local/apache-tomcat-{{req_tomcat_ver}} /usr/local/tomcat9
+- name : Permission for tomcat9 dir
+  command: chmod -R 775 /usr/local/apache-tomcat-9.0.37
+
+- name: starting tomcat
+  shell: nohup /usr/local/apache-tomcat-9.0.37/bin/startup.sh 
+- name: Replicating default port with required port 
+  template:
+   src: server.xml.j2
+   dest: /usr/local/apache-tomcat-9.0.37/conf/server.xml
+- name: Editing user and password
+  template:
+   src: tomcat-users9.xml.j2
+   dest: /usr/local/apache-tomcat-9.0.37/conf/tomcat-users.xml
+

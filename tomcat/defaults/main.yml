@@ -1,0 +1,9 @@
+---
+# defaults file for tomcat
+req_tomcat_ver: 9.0.37
+
+tomcat_url: https://downloads.apache.org/tomcat/tomcat-{{req_tomcat_ver.split('.')[0]}}/v{{req_tomcat_ver}}/bin/apache-tomcat-{{req_tomcat_ver}}.tar.gz
+
+tomcat_port: 8090
+tomcat_user: tomcat
+tomcat_password: tomcat
